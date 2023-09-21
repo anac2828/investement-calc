@@ -5,7 +5,10 @@ import { useState } from "react";
 
 function App() {
   const [tableData, setTableData] = useState([]);
-  const calculateHandler = (userInput) => {
+
+  const handleResetData = () => setTableData([]);
+
+  const handleCalculateInvestment = (userInput) => {
     // Should be triggered when form is submitted
     // You might not directly want to bind it to the submit event on the form though...
 
@@ -49,13 +52,18 @@ function App() {
   return (
     <div>
       <Header />
-      <Form onCalculateHandler={calculateHandler} />
+      <Form
+        onCalculateInvestment={handleCalculateInvestment}
+        onResetData={handleResetData}
+      />
 
       {/* Todo: Show below table conditionally (only once result data is available) */}
       {/* Show fallback text if no data is available */}
 
       {tableData.length === 0 ? (
-        <p style={{ textAlign: "center" }}>Please calcuate your investment</p>
+        <p style={{ textAlign: "center" }}>
+          Enter your information to calculate your investment.
+        </p>
       ) : (
         <Table tableData={tableData} />
       )}

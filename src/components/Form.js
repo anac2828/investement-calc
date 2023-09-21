@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Form({ onCalculateHandler }) {
+export default function Form({ onCalculateInvestment, onResetData }) {
   const [currentSavings, setCurrentSavings] = useState("");
   const [yearlyContribution, setYearlyContribution] = useState("");
   const [interestRate, setInteresRate] = useState("");
@@ -9,6 +9,8 @@ export default function Form({ onCalculateHandler }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    onResetData();
+
     const investmentInfo = {
       currentSavings,
       yearlyContribution,
@@ -16,7 +18,11 @@ export default function Form({ onCalculateHandler }) {
       duration,
     };
 
-    onCalculateHandler(investmentInfo);
+    onCalculateInvestment(investmentInfo);
+    setCurrentSavings("");
+    setYearlyContribution("");
+    setInteresRate("");
+    setDuration("");
   };
 
   return (
@@ -64,7 +70,7 @@ export default function Form({ onCalculateHandler }) {
         </p>
       </div>
       <p className="actions">
-        <button type="reset" className="buttonAlt">
+        <button type="reset" className="buttonAlt" onClick={onResetData}>
           Reset
         </button>
         <button type="submit" className="button">
