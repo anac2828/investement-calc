@@ -1,4 +1,9 @@
 export default function Table({ tableData }) {
+  const currencyFormat = new Intl.NumberFormat("us-en", {
+    style: "currency",
+    currency: "USD",
+  });
+
   return (
     <table className="result">
       <thead>
@@ -11,13 +16,13 @@ export default function Table({ tableData }) {
         </tr>
       </thead>
       <tbody>
-        {tableData.map((year) => (
-          <tr key={year.year}>
-            <td>{year.year}</td>
-            <td>{year.currentSavings}</td>
-            <td>{year.yearlyInterest}</td>
-            <td>{year.totalInterest}</td>
-            <td>{year.investedCapital}</td>
+        {tableData.map((data) => (
+          <tr key={data.year}>
+            <td>{data.year}</td>
+            <td>{currencyFormat.format(data.currentSavings)}</td>
+            <td>{currencyFormat.format(data.yearlyInterest)}</td>
+            <td>{currencyFormat.format(data.totalInterest)}</td>
+            <td>{currencyFormat.format(data.investedCapital)}</td>
           </tr>
         ))}
       </tbody>

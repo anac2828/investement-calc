@@ -13,6 +13,8 @@ function App() {
 
     const { yearlyContribution, interestRate, duration } = userInput;
     let { currentSavings } = userInput;
+    let investedCapital = currentSavings;
+    let totalInterest = 0;
 
     // let currentSavings = +userInput["current-savings"]; // feel free to change the shape of this input object!
     // const yearlyContribution = +userInput["yearly-contribution"]; // as mentioned: feel free to change the shape...
@@ -20,13 +22,12 @@ function App() {
     // const duration = +userInput["duration"];
 
     // The below code calculates yearly results (total savings, interest etc)
-    for (let i = 0; i < duration; i++) {
-      const investedCapital = currentSavings + yearlyContribution;
 
+    for (let i = 0; i < duration; i++) {
       const yearlyInterest = currentSavings * (interestRate / 100);
+      investedCapital += yearlyContribution;
 
       currentSavings += yearlyInterest + yearlyContribution;
-      let totalInterest;
 
       totalInterest = yearlyInterest + totalInterest;
 
