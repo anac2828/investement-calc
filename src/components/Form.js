@@ -1,28 +1,47 @@
 import { useState } from "react";
 
+const initialInput = {
+  "current-savings": 10000,
+  "yearly-contribution": 1200,
+  "expected-return": 7,
+  duration: 10,
+};
+
 export default function Form({ onCalculateInvestment, onResetData }) {
-  const [currentSavings, setCurrentSavings] = useState("");
-  const [yearlyContribution, setYearlyContribution] = useState("");
-  const [interestRate, setInteresRate] = useState("");
-  const [duration, setDuration] = useState("");
+  // const [currentSavings, setCurrentSavings] = useState("");
+  // const [yearlyContribution, setYearlyContribution] = useState("");
+  // const [interestRate, setInteresRate] = useState("");
+  // const [duration, setDuration] = useState("");
+
+  const [userInput, setUserInput] = useState(initialInput);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    onResetData();
+    // onResetData();
 
-    const investmentInfo = {
-      currentSavings,
-      yearlyContribution,
-      interestRate,
-      duration,
-    };
+    // const investmentInfo = {
+    //   currentSavings,
+    //   yearlyContribution,
+    //   interestRate,
+    //   duration,
+    // };
 
-    onCalculateInvestment(investmentInfo);
-    setCurrentSavings("");
-    setYearlyContribution("");
-    setInteresRate("");
-    setDuration("");
+    // onCalculateInvestment(investmentInfo);
+    // setCurrentSavings("");
+    // setYearlyContribution("");
+    // setInteresRate("");
+    // setDuration("");
+  };
+
+  const handleReset = () => {
+    setUserInput(initialInput);
+  };
+
+  const inputChangeHandler = (input, value) => {
+    setUserInput((prevInput) => {
+      return { ...prevInput, [input]: value };
+    });
   };
 
   return (
@@ -33,8 +52,10 @@ export default function Form({ onCalculateInvestment, onResetData }) {
           <input
             type="number"
             id="current-savings"
-            value={currentSavings}
-            onChange={(e) => setCurrentSavings(Number(e.target.value))}
+            value={userInput["current-savings"]}
+            onChange={(e) =>
+              inputChangeHandler("current-savings", Number(e.target.value))
+            }
           />
         </p>
         <p>
@@ -42,8 +63,10 @@ export default function Form({ onCalculateInvestment, onResetData }) {
           <input
             type="number"
             id="yearly-contribution"
-            value={yearlyContribution}
-            onChange={(e) => setYearlyContribution(Number(e.target.value))}
+            value={userInput["yearly-contribution"]}
+            onChange={(e) =>
+              inputChangeHandler("yearly-contribution", Number(e.target.value))
+            }
           />
         </p>
       </div>
@@ -55,8 +78,10 @@ export default function Form({ onCalculateInvestment, onResetData }) {
           <input
             type="number"
             id="expected-return"
-            value={interestRate}
-            onChange={(e) => setInteresRate(Number(e.target.value))}
+            value={userInput["expected-return"]}
+            onChange={(e) =>
+              inputChangeHandler("expected-return", Number(e.target.value))
+            }
           />
         </p>
         <p>
@@ -64,13 +89,15 @@ export default function Form({ onCalculateInvestment, onResetData }) {
           <input
             type="number"
             id="duration"
-            value={duration}
-            onChange={(e) => setDuration(Number(e.target.value))}
+            value={userInput["duration"]}
+            onChange={(e) =>
+              inputChangeHandler("duration", Number(e.target.value))
+            }
           />
         </p>
       </div>
       <p className="actions">
-        <button type="reset" className="buttonAlt" onClick={onResetData}>
+        <button type="reset" className="buttonAlt" onClick={handleReset}>
           Reset
         </button>
         <button type="submit" className="button">
